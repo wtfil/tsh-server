@@ -1,3 +1,5 @@
+#!/usr/bin/env node --harmony
+
 var app = require('koa')();
 var router = require('koa-router');
 var fs = require('fs');
