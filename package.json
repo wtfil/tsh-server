@@ -1,0 +1,39 @@
+{
+  "name": "tsh",
+  "version": "0.1.4",
+  "description": "share you terminal over http",
+  "keywords": [
+      "terminal",
+      "bash",
+      "shell",
+      "share",
+      "http"
+  ],
+  "author": {
+      "name": "Evgen Filatov",
+      "email": "evgen.filatov@gmail.com"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/wtfil/terminal-share"
+  },
+  "bin": {
+	"tsh": "./bin/share.sh"
+  },
+  "dependencies": {
+    "ansi-to-html": "^0.2.1",
+    "gnode": "^0.1.0",
+    "koa": "^0.13.0",
+    "koa-browserify": "0.0.4",
+    "koa-router": "^3.7.0",
+    "koa-static": "^1.4.7",
+    "socket.io": "^1.2.0",
+    "socket.io-client": "^1.2.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "start": "node server-0.10"
+  }
+}

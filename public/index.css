@@ -1,0 +1,14 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+.terminal {
+	white-space: pre-wrap;
+	font-family: monaco;
+	font-size: 12px;
+	padding: 15px;
+	box-sizing: border-box;
+	height: 100%;
+	overflow: scroll;
+}
