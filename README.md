@@ -1,25 +1,15 @@
-# tsh
+# tsh-server
 
-Tool for sharing terminal session over http
-
-## limitations
-
-`tsh` using the `script` commant for capture terminal. Because of this, there are limitations to environment.
-
-OS:
-- OSX - supported
-- Linux - not tested
-- Windows - not working
-
-Also `tsh` has not support for special characters yet:
-- arrrows
-- backspace
-- output that could change over the time (like VIM)
+`tsh-server` — http server for [`tsh`](https://github.com/wtfil/tsh) tool which allow you to share your terminal session over http
 
 ## install
 
-	npm install -g tsh
+	npm install -g tsh-server
 
 ## usage
 
-	tsh
+	tsh-server
+
+or
+
+	PORT=3000 tsh-server #it listen to 4444 port by default

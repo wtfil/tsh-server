@@ -1,7 +1,7 @@
 {
-  "name": "tsh",
-  "version": "0.1.4",
-  "description": "share you terminal over http",
+  "name": "tsh-server",
+  "version": "0.0.1",
+  "description": "tsh server",
   "keywords": [
       "terminal",
       "bash",
@@ -15,10 +15,10 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/wtfil/terminal-share"
+      "url": "https://github.com/wtfil/tsh-server"
   },
   "bin": {
-	"tsh": "./bin/share.sh"
+	"tsh-server": "./server-0.10.js"
   },
   "dependencies": {
     "ansi-to-html": "^0.2.1",
@@ -31,9 +31,9 @@
     "socket.io-client": "^1.2.0"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.11.0"
   },
   "scripts": {
-    "start": "node server-0.10"
+    "start": "node --harmony server"
   }
 }
