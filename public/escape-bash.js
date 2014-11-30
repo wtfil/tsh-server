@@ -1,18 +1,10 @@
+var MAX_RULE_TRY = 5;
+
 function escapeBash(text) {
 	return text
 		.split('\n')
 		.map(escapeLine)
 		.join('\n');
-}
-
-function runRule(text, rule) {
-	var prev;
-	var curr;
-	while (!curr || prev !== curr) {
-		prev = curr || text;
-		curr = rule(prev);
-	}
-	return curr;
 }
 
 function escapeLine(text) {
@@ -22,12 +14,34 @@ function escapeLine(text) {
 		}, text);
 }
 
+function runRule(text, rule) {
+	var tryes = MAX_RULE_TRY;
+	var prev;
+	var curr;
+	while (!curr || prev !== curr) {
+		prev = curr || text;
+		curr = rule(prev);
+		if (! --tryes) {
+			console.warn('Potencial error at "' + text + '"');
+			break;
+		}
+	}
+	return curr;
+}
+
 function backspace(text) {
-	var re = /\x08\x1b\[K/;
+	var re = /\x07?(\x08+)(\x1b\x5b\x4b)?/;
 	var match = text.match(re);
-	return match ?
-		(text.substring(0, match.index - 1) + text.substring(match.index + 4)) :
-		text;
+	var index, count, total;
+	if (!match) {
+		return text;
+	}
+	index = match.index;
+	removed = match[1].length;
+	total = match[0].length;
+
+	return text.substring(0, index - removed) +
+		text.substring(index + total);
 }
 
 module.exports = escapeBash;
