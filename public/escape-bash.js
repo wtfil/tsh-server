@@ -30,7 +30,7 @@ function runRule(text, rule) {
 }
 
 function backspace(text) {
-	var re = /\x07?(\x08+)(\x1b\x5b\x4b)?/;
+	var re = /\x07?(\x08+)(\x1b\x5b(?:\x4b|\d+\x50))?/;
 	var match = text.match(re);
 	var index, count, total;
 	if (!match) {
