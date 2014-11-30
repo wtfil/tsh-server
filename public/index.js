@@ -1,14 +1,15 @@
 var io = require('socket.io-client');
 var Convert = require('ansi-to-html')
+var escapeBash = require('./escape-bash');
 var convert = new Convert({newLine: true});
 var terminalId = window.location.pathname.split('/')[1];
 var socket = io('//' + window.location.host);
 
-socket.emit('join-room', {id: terminalId});
-
 function format(text) {
-	return convert.toHtml(text);
+	return convert.toHtml(escapeBash(text));
 }
+
+socket.emit('join-room', {id: terminalId});
 
 window.addEventListener('DOMContentLoaded', function () {
 	var terminal = document.querySelector('.terminal');

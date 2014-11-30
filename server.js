@@ -21,18 +21,22 @@ app.get('/:id', function* () {
 	this.body = fs.createReadStream('./public/index.html');
 });
 app.post('/rooms/:id', parseBody, function* (next) {
-	saveTerminal(this.params.id, this.request.body.toString());
-	sendTerminal(this.params.id);
+	var changes = saveTerminal(this.params.id, this.request.body.toString());
+	if (changes) {
+		sendTerminal(this.params.id);
+	}
 });
 
 
 io.on('connection', function (socket) {
 	socket.on('join-room', function (data) {
 		socket.join(data.id);
+		socket.emit('terminal', {terminal: terminals[data.id]});
 	});
 });
 
 server.listen(Number(process.env.PORT || 4444));
+console.log('server started on %s port', process.env.PORT || 4444);
 
 function* parseBody(next) {
 	var chunks = [];
@@ -49,7 +53,9 @@ function* parseBody(next) {
 }
 
 function saveTerminal(id, data) {
+	var prev = terminals[id];
 	terminals[id] = data;
+	return data !== prev;
 }
 
 function sendTerminal(id) {
