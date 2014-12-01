@@ -17,8 +17,8 @@ window.addEventListener('DOMContentLoaded', function () {
 	socket.on('terminal', function (data) {
 		var current = format(data.terminal);
 		if (current !== prev) {
-			terminal.innerHTML = current;
 			prev = current;
+			terminal.innerHTML = current;
 			terminal.scrollTop = terminal.scrollHeight;
 		}
 	});
