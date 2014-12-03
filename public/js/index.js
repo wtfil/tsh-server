@@ -1,6 +1,6 @@
 var io = require('socket.io-client');
 var Convert = require('ansi-to-html')
-var escapeBash = require('./escape-bash');
+var escapeBash = require('./lib/escape-bash');
 var convert = new Convert({newLine: true});
 var terminalId = window.location.pathname.split('/')[1];
 var socket = io('//' + window.location.host);

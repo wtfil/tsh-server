@@ -1,24 +1,24 @@
 {
   "name": "tsh-server",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "tsh server",
   "keywords": [
-      "terminal",
-      "bash",
-      "shell",
-      "share",
-      "http"
+    "terminal",
+    "bash",
+    "shell",
+    "share",
+    "http"
   ],
   "author": {
-      "name": "Evgen Filatov",
-      "email": "evgen.filatov@gmail.com"
+    "name": "Evgen Filatov",
+    "email": "evgen.filatov@gmail.com"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/wtfil/tsh-server"
+    "type": "git",
+    "url": "https://github.com/wtfil/tsh-server"
   },
   "bin": {
-	"tsh-server": "./server-0.10.js"
+    "tsh-server": "./server-0.10.js"
   },
   "dependencies": {
     "ansi-to-html": "^0.2.1",
@@ -34,6 +34,11 @@
     "node": ">= 0.11.0"
   },
   "scripts": {
-    "start": "node --harmony server"
+    "start": "node --harmony server",
+    "test": "browserify public/js/tests.js > public/js/_tests.js && mocha public/js/_tests.js"
+  },
+  "devDependencies": {
+    "browserify": "^6.3.3",
+    "mocha": "^2.0.1"
   }
 }

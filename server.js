@@ -31,7 +31,7 @@ app.post('/rooms/:id', parseBody, function* (next) {
 io.on('connection', function (socket) {
 	socket.on('join-room', function (data) {
 		socket.join(data.id);
-		socket.emit('terminal', {terminal: terminals[data.id]});
+		sendTerminal(data.id);
 	});
 });
 
@@ -59,5 +59,7 @@ function saveTerminal(id, data) {
 }
 
 function sendTerminal(id) {
-	io.to(id).emit('terminal', {terminal: terminals[id]});
+	if (terminals[id]) {
+		io.to(id).emit('terminal', {terminal: terminals[id]});
+	}
 }
