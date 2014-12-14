@@ -20,11 +20,22 @@ app.get('/:id', function* () {
 	this.type = 'text/html';
 	this.body = fs.createReadStream('./public/index.html');
 });
-app.post('/rooms/:id', parseBody, function* (next) {
+app.post('/api/terminals/:id', parseBody, function* (next) {
 	var changes = saveTerminal(this.params.id, this.request.body.toString());
 	if (changes) {
 		sendTerminal(this.params.id);
 	}
+    this.status = 200;
+});
+
+app.get('/api/terminals/:id', function* () {
+    var terminal = terminalById(this.params.id);
+    if (!terminal) {
+        this.status = 404;
+    } else {
+        this.type = 'json';
+        this.body = {terminal: terminal};
+    }
 });
 
 
@@ -50,6 +61,10 @@ function* parseBody(next) {
 		}.bind(this));
 	};
 	yield next;
+}
+
+function terminalById(id) {
+    return terminals[id];
 }
 
 function saveTerminal(id, data) {

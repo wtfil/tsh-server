@@ -3,12 +3,28 @@ html, body {
 	padding: 0;
 	height: 100%;
 }
+h1, h2, h3, h4 {
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 10px;
+}
+code {
+    display: block;
+    float: left;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #eee;
+}
 .terminal {
 	white-space: pre-wrap;
-	font-family: monaco;
+	font-family: monaco, consolas;
 	font-size: 12px;
 	padding: 15px;
 	box-sizing: border-box;
 	height: 100%;
 	overflow: scroll;
+}
+.hint {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 20px;
 }
