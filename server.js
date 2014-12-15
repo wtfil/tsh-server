@@ -64,6 +64,6 @@ function saveTerminal(id, data) {
 
 function sendTerminal(id) {
 	if (terminals[id]) {
-		io.to(id).emit('terminal', {terminal: terminals[id]});
+		io.to(id).emit('terminal', terminals[id]);
 	}
 }
