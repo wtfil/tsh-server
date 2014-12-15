@@ -1,6 +1,6 @@
 {
   "name": "tsh-server",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "tsh server",
   "keywords": [
     "terminal",
@@ -23,6 +23,7 @@
   "dependencies": {
     "ansi-to-html": "^0.2.1",
     "body-parser": "^1.10.0",
+    "component-ajax": "0.0.2",
     "gnode": "^0.1.0",
     "koa": "^0.13.0",
     "koa-bodyparser": "^1.3.0",
