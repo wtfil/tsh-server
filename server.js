@@ -5,10 +5,24 @@ var router = require('koa-router');
 var fs = require('fs');
 var serve = require('koa-static');
 var browserify = require('koa-browserify');
+var bodyParser = require('koa-bodyparser');
 var terminals = {};
 var http = require('http');
 var server, io;
 
+function saveTerminal(id, data) {
+	var prev = terminals[id];
+	terminals[id] = data;
+	return prev && data.terminal !== prev.terminal;
+}
+
+function sendTerminal(id) {
+	if (terminals[id]) {
+		io.to(id).emit('terminal', terminals[id]);
+	}
+}
+
+app.use(bodyParser());
 app.use(browserify('./public'));
 app.use(serve('./public'));
 app.use(router(app));
@@ -20,8 +34,9 @@ app.get('/:id', function* () {
 	this.type = 'text/html';
 	this.body = fs.createReadStream('./public/index.html');
 });
-app.post('/rooms/:id', parseBody, function* (next) {
-	var changes = saveTerminal(this.params.id, this.request.body.toString());
+app.post('/rooms/:id', function* (next) {
+	var changes = saveTerminal(this.params.id, this.request.body);
+
 	if (changes) {
 		sendTerminal(this.params.id);
 	}
@@ -37,29 +52,3 @@ io.on('connection', function (socket) {
 
 server.listen(Number(process.env.PORT || 4444));
 console.log('server started on %s port', process.env.PORT || 4444);
-
-function* parseBody(next) {
-	var chunks = [];
-
-	this.req.on('data', chunks.push.bind(chunks));
-
-	yield function (cb) {
-		this.req.on('end', function () {
-			this.request.body = Buffer.concat(chunks);
-			cb()
-		}.bind(this));
-	};
-	yield next;
-}
-
-function saveTerminal(id, data) {
-	var prev = terminals[id];
-	terminals[id] = data;
-	return data !== prev;
-}
-
-function sendTerminal(id) {
-	if (terminals[id]) {
-		io.to(id).emit('terminal', {terminal: terminals[id]});
-	}
-}

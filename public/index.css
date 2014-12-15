@@ -4,6 +4,7 @@ html, body {
 	height: 100%;
 }
 .terminal {
+	background: #333;
 	white-space: pre-wrap;
 	font-family: monaco;
 	font-size: 12px;
